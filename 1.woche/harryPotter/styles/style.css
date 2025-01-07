@@ -1,62 +1,191 @@
 body {
-    font-family: 'Comfortaa', sans-serif;
-    background: #111;
-    color: #FFFFFF;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: 'Comfortaa', sans-serif;
+  background: #111;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-image: url('https://i.postimg.cc/ZqmcPy10/harry-potter-desk-wallpaper-by-bamberos-compressed.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.header-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px 0;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.header-container h1 {
+  font: 60px 'Cinzel Decorative', serif;
+  margin: 0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.header-container h3 {
+  font: 24px 'Cinzel', serif;
+  margin: 10px 0 0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+#options-container {
+  position: fixed;
+  top: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.option-button {
+  background: #333;
+  color: #FFD700;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-family: 'Cinzel', serif;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.option-button:hover {
+  background: #FFD700;
+  color: #333;
+  transform: scale(1.05);
+}
+
+.content-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
   
-  h1 {
-    font: 60px 'Cinzel Decorative', serif;
-    margin: 20px 0;
+}
+
+.character-container, .spells-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 280px;
+}
+
+.character-card, .spell-card {
+  background: #333;
+  color: #FFD700;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+}
+
+.character-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.character-card .card-content {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 0 0 15px 15px;
+}
+
+.character-card h2 {
+  font-size: 22px;
+  margin: 0 0 10px;
+  color: #FFD700;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+.character-card p {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #fff;
+}
+
+.character-card .house {
+  font-weight: bold;
+  color: #FFD700;
+}
+
+.spell-card {
+  background: #444;
+  color: #FFD700;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  width: 300px;
+  text-align: center;
+}
+
+.spell-card h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.spell-card p {
+  font-size: 16px;
+}
+
+@media (max-width: 1100px) {
+  #options-container {
+    display: none; 
+    position: fixed;
+    top: 160px;
+    right: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px;
+    width: 200px;
+    border-radius: 10px;
   }
-  
-  h3 {
-    font: 24px 'Cinzel', serif;
-    margin-bottom: 40px;
+
+  #options-container.open {
+    display: flex; 
   }
-  
-  main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .character-card {
-    background: #333;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    width: 300px;
-    text-align: left;
-  }
-  
-  .character-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-  }
-  
-  .character-card .card-content {
-    padding: 20px;
-  }
-  
-  .character-card h2 {
-    font-size: 22px;
-    margin: 0 0 10px;
+
+  #menu-toggle {
+    display: block;
+    position: fixed;
+    top: 160px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
     color: #FFD700;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 11;
   }
-  
-  .character-card p {
-    font-size: 16px;
-    margin: 5px 0;
+
+  .character-container, .spells-container {
+    margin-top: 150px;
   }
-  
-  .character-card .house {
-    font-weight: bold;
-    color: #FFD700;
-  }
-  
+}
