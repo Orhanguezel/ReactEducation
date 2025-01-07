@@ -1,95 +1,134 @@
-document.getElementById('menu-toggle').addEventListener('click', () => {
-  const optionsContainer = document.getElementById('options-container');
-  optionsContainer.classList.toggle('open');
-});
-
 document.addEventListener('DOMContentLoaded', () => {
   const API_URL = 'https://hp-api.onrender.com/api';
+  const ALT_API_URL = 'https://potterapi-fedeperin.vercel.app/en';
   const contentContainer = document.getElementById('content-container');
+  const form = document.getElementById('form');
+  const input = document.getElementById('searchData');
+  const optionsContainer = document.getElementById('options-container'); 
+  const menuToggle = document.getElementById('menu-toggle');
 
-  async function fetchData(endpoint) {
+
+  async function fetchData(url, endpoint) {
     try {
-      const response = await fetch(`${API_URL}/${endpoint}`);
+      const response = await fetch(`${url}/${endpoint}`);
       if (!response.ok) {
         throw new Error(`API Error: ${response.status}`);
       }
       return await response.json();
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error(`Error fetching data from ${endpoint}:`, error);
       return null;
     }
   }
 
+  // Clear the content container
   function clearContent() {
     contentContainer.innerHTML = '';
   }
 
-  function displayCharacters(characters) {
+  // Display results in the container
+  function displayResults(results) {
     clearContent();
-    const characterContainer = document.createElement('div');
-    characterContainer.classList.add('character-container');
+    const container = document.createElement('div');
+    container.classList.add('result-container');
 
-    characters.forEach(character => {
+    results.forEach((result) => {
       const card = document.createElement('div');
-      card.classList.add('character-card');
+      card.classList.add('card');
       card.innerHTML = `
-        <img src="${character.image || 'https://via.placeholder.com/300x300?text=No+Image'}" alt="${character.name}">
-        <h2>${character.name}</h2>
-        <p><strong>House:</strong> ${character.house || 'Unknown'}</p>
-        <p><strong>Patronus:</strong> ${character.patronus || 'Unknown'}</p>
-        <p><strong>Actor:</strong> ${character.actor || 'Not Available'}</p>
+        <img src="${result.image || result.cover || 'https://via.placeholder.com/300x250?text=No+Image'}" alt="${result.name || result.title || 'No Image'}">
+        <h2>${result.name || result.title || 'Unknown'}</h2>
+        <p><strong>House:</strong> ${result.house || 'Unknown'}</p>
+        <p><strong>Description:</strong> ${result.description || 'N/A'}</p>
+        <p><strong>Author/Founder:</strong> ${result.author || result.founder || 'N/A'}</p>
       `;
-      characterContainer.appendChild(card);
+      container.appendChild(card);
     });
 
-    contentContainer.appendChild(characterContainer);
+    contentContainer.appendChild(container);
   }
 
-  function displaySpells(spells) {
-    clearContent();
-    const spellsContainer = document.createElement('div');
-    spellsContainer.classList.add('spells-container');
-
-    spells.forEach(spell => {
-      const spellCard = document.createElement('div');
-      spellCard.classList.add('spell-card');
-      spellCard.innerHTML = `
-        <h2>${spell.name}</h2>
-        <p>${spell.description || 'No description available.'}</p>
-      `;
-      spellsContainer.appendChild(spellCard);
-    });
-
-    contentContainer.appendChild(spellsContainer);
-  }
-
+  // Handle button clicks
   async function handleOptionClick(action) {
+    clearContent();
+    let data = null;
     switch (action) {
       case 'all-characters':
-        const allCharacters = await fetchData('characters');
-        if (allCharacters) displayCharacters(allCharacters);
-        break;
-      case 'students':
-        const students = await fetchData('characters/students');
-        if (students) displayCharacters(students);
-        break;
-      case 'staff':
-        const staff = await fetchData('characters/staff');
-        if (staff) displayCharacters(staff);
-        break;
-      case 'house':
-        const houseCharacters = await fetchData('characters/house/gryffindor');
-        if (houseCharacters) displayCharacters(houseCharacters);
+        data = await fetchData(API_URL, 'characters');
+        if (data) displayResults(data);
         break;
       case 'spells':
-        const spells = await fetchData('spells');
-        if (spells) displaySpells(spells);
+        data = await fetchData(API_URL, 'spells');
+        if (data) displayResults(data);
+        break;
+      case 'books':
+        data = await fetchData(ALT_API_URL, 'books');
+        if (data) displayResults(data);
+        break;
+      case 'houses':
+        data = await fetchData(ALT_API_URL, 'houses');
+        if (data) displayResults(data);
         break;
       default:
-        clearContent();
-        contentContainer.innerHTML = '<p>Invalid action selected.</p>';
+        contentContainer.innerHTML = '<p>No data found.</p>';
     }
   }
+
+  // Handle search functionality
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const searchTerm = input.value.trim().toLowerCase();
+    if (searchTerm) {
+      try {
+        const characters = await fetchData(API_URL, 'characters');
+        const spells = await fetchData(API_URL, 'spells');
+        const books = await fetchData(ALT_API_URL, 'books');
+        const houses = await fetchData(ALT_API_URL, 'houses');
+
+        const allResults = [
+          ...(characters || []),
+          ...(spells || []),
+          ...(books || []),
+          ...(houses || [])
+        ];
+
+        const filteredResults = allResults.filter((item) => {
+          return (
+            (item.name && item.name.toLowerCase().includes(searchTerm)) ||
+            (item.title && item.title.toLowerCase().includes(searchTerm)) ||
+            (item.description && item.description.toLowerCase().includes(searchTerm)) ||
+            (item.founder && item.founder.toLowerCase().includes(searchTerm))
+          );
+        });
+
+        if (filteredResults.length > 0) {
+          displayResults(filteredResults);
+        } else {
+          clearContent();
+          contentContainer.innerHTML = `<p>No results found for "${searchTerm}".</p>`;
+        }
+      } catch (error) {
+        console.error('Error during search:', error);
+        contentContainer.innerHTML = `<p>Something went wrong. Please try again later.</p>`;
+      }
+    } else {
+      contentContainer.innerHTML = `<p>Please enter a valid search term.</p>`;
+    }
+  });
+
+  // Handle menu toggle
+  menuToggle.addEventListener('click', () => {
+    optionsContainer.classList.toggle('open');
+  });
+
+  document.addEventListener('click', (event) => {
+    if (
+      !optionsContainer.contains(event.target) &&
+      !menuToggle.contains(event.target)
+    ) {
+      optionsContainer.classList.remove('open');
+    }
+  });
 
   document.getElementById('options-container').addEventListener('click', (e) => {
     if (e.target.classList.contains('option-button')) {
