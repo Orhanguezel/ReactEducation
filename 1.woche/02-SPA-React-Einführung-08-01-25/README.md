@@ -4,6 +4,12 @@
 
 1. Was ist `SPA`(Single Page Application) ?
 
+- Eine SPA ist eine Webseite, die normalenweise ein einzelnes HTML- Document ist.
+- Der inhalt davon wird dynamish neu geladen
+- Die gesamte
+
+
+
 2. Was ist `REACT` ?
 
 3. Was ist `REACT Ökosystem` ?
