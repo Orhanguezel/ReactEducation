@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Table, Thead, Tr } from "reactstrap";
 
 export default class ProductList extends Component {
   render() {
@@ -9,16 +10,16 @@ export default class ProductList extends Component {
         </h3>
 
         {/* Products table */}
-        <table className="table table-striped">
-          <thead>
-            <tr>
+        <Table className="table table-striped">
+          <Thead>
+            <Tr>
               <th>Product ID</th>
               <th>Product Name</th>
               <th>Quantity Per Unit</th>
               <th>Unit Price ($)</th>
               <th>Units In Stock</th>
-            </tr>
-          </thead>
+            </Tr>
+          </Thead>
           <tbody>
             {this.props.products.map((product) => (
               <tr key={product.id}>
@@ -30,7 +31,7 @@ export default class ProductList extends Component {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </div>
     );
   }
