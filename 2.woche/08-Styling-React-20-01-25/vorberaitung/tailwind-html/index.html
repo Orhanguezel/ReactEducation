@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./src/index.css" rel="stylesheet" />
+    <link href="./dist/output.css" rel="stylesheet">
+
+  </head>
+  <body class="bg-background text-primary">
+
+    <div class="bg-blue-500 text-white p-4 rounded-lg">
+      Bu bir Tailwind kutusudur.
+    </div>
+
+      <button class="btn flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        Onayla
+      </button>
+
+
+      <div class="bg-primary text-white p-4 rounded-lg">
+        Bu bir test kutusudur.
+      </div>
+
+      <button class="btn">Tıklayın</button>
+
+      <div class="p-10 bg-blue-500 text-white">
+        İçerik ile kenarlar arasındaki boşluk 4 birim.
+      </div>
+
+      <div class="pt-2 pb-4 pr-6 pl-8 bg-green-500 text-white">
+        Üst: 2, Alt: 4, Sağ: 6, Sol: 8 birim boşluk.
+      </div>
+
+      <div class="py-4 px-6 bg-red-500 text-white">
+        Üst/Alt: 4 birim, Sağ/Sol: 6 birim boşluk.
+      </div>
+
+      <div class="m-4 bg-yellow-500 text-black">
+        Tüm kenarlardan 4 birim dış boşluk.
+      </div>
+
+      <div class="mt-2 mb-4 mr-6 ml-8 bg-purple-500 text-white">
+        Üst: 2, Alt: 4, Sağ: 6, Sol: 8 birim dış boşluk.
+      </div>
+
+      <div class="my-4 mx-6 bg-gray-500 text-white">
+        Üst/Alt: 4 birim, Sağ/Sol: 6 birim dış boşluk.
+      </div>
+
+      <div class="flex space-x-4 bg-blue-100 p-4">
+        <div class="bg-blue-500 text-white p-2">Kutucuk 1</div>
+        <div class="bg-blue-500 text-white p-2">Kutucuk 2</div>
+        <div class="bg-blue-500 text-white p-2">Kutucuk 3</div>
+      </div>
+
+      <div class="flex flex-col space-y-4 bg-green-100 p-4">
+        <div class="bg-green-500 text-white p-2">Kutucuk 1</div>
+        <div class="bg-green-500 text-white p-2">Kutucuk 2</div>
+        <div class="bg-green-500 text-white p-2">Kutucuk 3</div>
+      </div>
+
+      <div class="m-4 bg-yellow-200 p-4">
+        <div class="-mt-2 bg-yellow-500 text-black">
+          Üstteki boşluk 2 birim içeri taşar.
+        </div>
+      </div>
+
+      <div class="m-72 bg-red-500 text-white">
+        18rem dış boşluk.
+      </div>
+
+      <div class="p-4 sm:p-8 md:p-16 lg:p-32 bg-blue-200">
+        Farklı cihaz boyutlarında padding.
+      </div>
+
+      <div class="bg-white p-8 m-4 rounded-lg shadow-lg">
+        <h2 class="text-xl font-bold mb-4">Başlık</h2>
+        <p class="text-gray-600">Kart içeriği burada yer alır.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 p-4">
+        <div class="bg-blue-500 h-16"></div>
+        <div class="bg-green-500 h-16"></div>
+        <div class="bg-red-500 h-16"></div>
+      </div>
+
+
+
+  </body>
+</html>

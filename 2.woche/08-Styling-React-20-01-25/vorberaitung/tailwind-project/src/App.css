@@ -1,0 +1,13 @@
+#root {
+  :root {
+    --background: 240, 100%, 98%;
+    --foreground: 220, 13%, 20%;
+    --primary: 240, 100%, 50%;
+    --primary-foreground: 240, 100%, 98%;
+    --secondary: 260, 80%, 60%;
+    --secondary-foreground: 260, 100%, 98%;
+    --muted: 220, 10%, 90%;
+    --muted-foreground: 220, 13%, 20%;
+  }
+  
+}
